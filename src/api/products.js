@@ -1,29 +1,31 @@
 import firebase from 'firebase'
 
 const products = {
-  get: function(id) {
 
+  onChange: function(f) {
+    return firebase.database().ref(`products`).on('value', function(snapshot) {
+      snapshot.val() && f(Object.values(snapshot.val()));
+    });
   },
 
-  find: function(name) {
-
+  create: function(data) {
+    const newProductKey = firebase.database().ref('products').push().key;
+    console.log(data)
+    return firebase.database().ref(`products/${newProductKey}`).set({ id: newProductKey, ...data });
   },
 
-  getAll: function() {
-
+  delete: function(id) {
+    firebase.database().ref(`products/${id}`).delete()
   },
 
-  add: function(data) {
-    var newProductKey = firebase.database().ref().child('products').push().key;
-    return firebase.database().ref(`products/${newProductKey}`).set(data);
-  },
-
-  remove: function(id) {
-
-  },
-
-  edit: function(id, { name, price, description, picUrls, dispDate }) {
+  update: function(id, { name, price, description, imgUrl, dispDate }) {
     
+  },
+
+  uploadImages: function(imageFiles) {
+    return imageFiles.map(file => (
+      firebase.storage().ref(file.name).put(file).then(s => s.downloadURL)
+    ));
   }
 };
 

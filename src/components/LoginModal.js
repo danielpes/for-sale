@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../styles/LoginModal.css';
 
-const LoginModal = ({isActive, onLoginSubmit, onLoginCancel }) => {
+const LoginModal = ({ onLoginSubmit, onLoginCancel }) => {
 
   function onFormSubmit(ev) {
     ev.preventDefault();
