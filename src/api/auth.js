@@ -1,35 +1,25 @@
 import firebase from 'firebase'
 
-export function doLogin(email, password) {
+const auth = {
+  doLogin: function(email, password) {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+  },
 
-  if (firebase.auth().currentUser) {
-    // [START signout]
-    firebase.auth().signOut();
-    // [END signout]
-  } else {
-    if (email.length < 4) {
-      alert('Please enter an email address.');
-      return;
+  handleError: function(error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+
+    if (errorCode === 'auth/wrong-password') {
+      alert('Incorrect password.');
+    } else {
+      alert(errorMessage);
     }
-    if (password.length < 4) {
-      alert('Please enter a password.');
-      return;
-    }
-    // Sign in with email and pass.
-    // [START authwithemail]
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // [START_EXCLUDE]
-      if (errorCode === 'auth/wrong-password') {
-        alert('Wrong password.');
-      } else {
-        alert(errorMessage);
-      }
-      console.log(error);
-      // [END_EXCLUDE]
-    });
-    // [END authwithemail]
-  }
+    console.log(error);
+  },
+
+  onAuthChange: function(f) {
+    firebase.auth().onAuthStateChanged(f)
+  } 
 }
+
+export default auth

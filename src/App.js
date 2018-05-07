@@ -3,7 +3,8 @@ import LoginModal from './components/LoginModal';
 import Header from './components/Header';
 import Body from './components/Body';
 import Footer from './components/Footer';
-import { firebaseInit, doLogin } from "./api/firebase";
+import api from "./api/api";
+import auth from "./api/auth";
 import './styles/App.css';
 
 class App extends Component {
@@ -17,21 +18,25 @@ class App extends Component {
   }
 
   componentDidMount() {
-    firebaseInit()
+    api.init()
+    auth.onAuthChange(this.handleUserAuthenticated)
+  }
+
+  handleUserAuthenticated = (user) => {
+    console.log(user);
+    this.setState({ authenticatedUser: user });
   }
 
   handleLoginClick = () => {
-    this.setState({ isLoginModalActive: true })
+    this.setState({ isLoginModalActive: true });
   }
 
   handleLoginSubmit = (email, password) => {
-    doLogin(email, password)
-      .then(() => this.setState({ isLoginModalActive: false }))
-      .catch(alert)
+    auth.doLogin(email, password).then(() => this.setState({ isLoginModalActive: false }), auth.handleError);
   }
 
   handleLoginCancel = () => {
-    this.setState({ isLoginModalActive: false })
+    this.setState({ isLoginModalActive: false });
   }
 
   render() {
@@ -44,6 +49,7 @@ class App extends Component {
         />
         <Header 
           onLoginClick={ this.handleLoginClick }
+          user={ this.state.authenticatedUser }
         />
         <Body />
         <Footer />
