@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = (props) => {
 
-  const { onLoginClick, user } = props
+  const { onLoginClick, onLogoutClick, user } = props
 
   console.log(user);
 
@@ -14,7 +14,7 @@ const Header = (props) => {
 
       {/* Sign In */}
       <div className="navbar-end">
-        <a className="navbar-item" onClick={ user || onLoginClick }>{ user ? user.email : 'Sign In' }</a>
+        <a className="navbar-item" onClick={ user ? onLogoutClick : onLoginClick }>{ user ? user.email : 'Sign In' }</a>
       </div>
 
     </div>

@@ -5,6 +5,10 @@ const auth = {
     return firebase.auth().signInWithEmailAndPassword(email, password)
   },
 
+  doLogout: function() {
+    return firebase.auth().signOut()
+  },
+
   handleError: function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -18,8 +22,15 @@ const auth = {
   },
 
   onAuthChange: function(f) {
-    firebase.auth().onAuthStateChanged(f)
-  } 
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+      const user = {
+        name: firebaseUser.displayName,
+        email: firebaseUser.email,
+        uid: firebaseUser.uid
+      }
+      f(user)
+    });
+  }
 }
 
 export default auth

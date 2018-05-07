@@ -18,8 +18,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    api.init()
-    auth.onAuthChange(this.handleUserAuthenticated)
+    api.init();
+    auth.onAuthChange(this.handleUserAuthenticated);
   }
 
   handleUserAuthenticated = (user) => {
@@ -29,6 +29,10 @@ class App extends Component {
 
   handleLoginClick = () => {
     this.setState({ isLoginModalActive: true });
+  }
+
+  handleLogoutClick = () => {
+    auth.doLogout().then(() => this.setState({ authenticatedUser: undefined }));
   }
 
   handleLoginSubmit = (email, password) => {
@@ -49,6 +53,7 @@ class App extends Component {
         />
         <Header 
           onLoginClick={ this.handleLoginClick }
+          onLogoutClick={ this.handleLogoutClick }
           user={ this.state.authenticatedUser }
         />
         <Body />
