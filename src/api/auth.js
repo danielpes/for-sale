@@ -23,12 +23,11 @@ const auth = {
 
   onAuthChange: function(f) {
     firebase.auth().onAuthStateChanged((firebaseUser) => {
-      const user = {
+      firebaseUser && f({
+        uid: firebaseUser.uid,
         name: firebaseUser.displayName,
-        email: firebaseUser.email,
-        uid: firebaseUser.uid
-      }
-      f(user)
+        email: firebaseUser.email
+      })
     });
   }
 }

@@ -13,7 +13,7 @@ const LoginModal = ({isActive, onLoginSubmit, onLoginCancel }) => {
   }
 
   return (
-    <div className={ `LoginModal modal${(isActive ? ' is-active' : '')}` }>
+    <div className={ 'LoginModal modal is-active' }>
 
       <div className="modal-background"></div>
       <form className="modal-card" onSubmit={ onFormSubmit }>

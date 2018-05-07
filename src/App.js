@@ -5,6 +5,7 @@ import Body from './components/Body';
 import Footer from './components/Footer';
 import api from "./api/api";
 import auth from "./api/auth";
+import products from "./api/products";
 import './styles/App.css';
 
 class App extends Component {
@@ -31,8 +32,18 @@ class App extends Component {
     this.setState({ isLoginModalActive: true });
   }
 
+  handleAddClick = () => {
+    products.add({
+      name: "test2",
+      description: "",
+      price: 41.52,
+      picUrls: ["url3", "url4"],
+      dispDate: new Date().toISOString()
+    })
+  }
+
   handleLogoutClick = () => {
-    auth.doLogout().then(() => this.setState({ authenticatedUser: undefined }));
+    auth.doLogout().then(() => this.setState({ authenticatedUser: undefined }), auth.handleError);
   }
 
   handleLoginSubmit = (email, password) => {
@@ -46,14 +57,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <LoginModal 
-          isActive={ this.state.isLoginModalActive }
-          onLoginSubmit={ this.handleLoginSubmit }
-          onLoginCancel={ this.handleLoginCancel }
-        />
+        { this.state.isLoginModalActive && (
+          <LoginModal 
+            onLoginSubmit={ this.handleLoginSubmit }
+            onLoginCancel={ this.handleLoginCancel }
+          />
+        ) }
         <Header 
           onLoginClick={ this.handleLoginClick }
           onLogoutClick={ this.handleLogoutClick }
+          onAddClick={ this.handleAddClick }
           user={ this.state.authenticatedUser }
         />
         <Body />

@@ -2,9 +2,14 @@ import React from 'react';
 
 const Header = (props) => {
 
-  const { onLoginClick, onLogoutClick, user } = props
+  const { onLoginClick, onLogoutClick, onAddClick, user } = props
 
-  console.log(user);
+  const addProductButton = user && 
+    <a className="button is-primary" onClick={ onAddClick }>Add Product</a>
+
+  const loginButton = user ? 
+    <a className="navbar-item" onClick={ onLogoutClick }>Logout</a>
+    : <a className="navbar-item" onClick={ onLoginClick }>Login</a>
 
   return (
     <div className="Header navbar is-fixed-top is-transparent has-shadow">
@@ -12,9 +17,10 @@ const Header = (props) => {
       <div className="navbar-brand">
       </div>
 
-      {/* Sign In */}
       <div className="navbar-end">
-        <a className="navbar-item" onClick={ user ? onLogoutClick : onLoginClick }>{ user ? user.email : 'Sign In' }</a>
+        <div className="navbar-item">{ addProductButton }</div>
+        <div className="navbar-item">{ loginButton }</div>
+
       </div>
 
     </div>
