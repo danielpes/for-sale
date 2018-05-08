@@ -2,6 +2,7 @@ import React from 'react';
 
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/material_green.css'
+import 'flatpickr/dist/l10n/fr';
 import '../styles/NewProductModal.css';
 
 class NewProductModal extends React.Component {
@@ -106,7 +107,12 @@ class NewProductModal extends React.Component {
                 <Flatpickr 
                   className="input"
                   value={ this.state.data.dispDate }
-                  onChange={ d => this.setField({ dispDate: d[0] }) } />
+                  onChange={ d => this.setField({ dispDate: d[0] }) } 
+                  options={{
+                    locale: "fr",
+                    dateFormat: "d/m/Y"
+                  }}
+                />
               </div>
             </div>
 

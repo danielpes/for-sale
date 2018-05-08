@@ -26,6 +26,7 @@ const productsModel = {
   },
 
   uploadImages: function(imageFiles) {
+    console.log(imageFiles);
     return imageFiles.map(file => (
       firebase.storage().ref(file.name).put(file).then(s => s.downloadURL)
     ));

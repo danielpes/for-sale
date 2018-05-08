@@ -15,6 +15,7 @@ const Header = (props) => {
     <div className="Header navbar is-fixed-top is-transparent has-shadow">
 
       <div className="navbar-brand">
+        <div className="navbar-item is-size-5">For Sale</div>
       </div>
 
       <div className="navbar-end">

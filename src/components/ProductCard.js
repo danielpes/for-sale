@@ -1,59 +1,119 @@
 import React from 'react';
 
 import utils from  '../utils/utils'
+import Lightbox from 'react-images';
 import '../styles/ProductCard.css';
 
-const ProductCard = ({ data, user, onEditClick, onDeleteClick }) => {
+class ProductCard extends React.Component {
 
-  const { id, name, description, price, imgUrl, dispDate } = data;
+  constructor(props) {
+    super(props);
 
-  const priceText = (price && price > 0) 
-    ? <p className="subtitle is-size-6"><b>{ utils.formatPrice(price) }</b></p>
-    : <p className="subtitle is-size-6 has-text-success"><b>GRATUIT !</b></p>
+    Object.assign(this, props.data);
+    console.log(this);
+    this.isAuthenticated = Boolean(props.user); 
+    this.onEditClick = props.onEditClick;
+    this.onDeleteClick = props.onDeleteClick;
 
-  let footer;
-  if (user) footer = (
-    <footer className="card-footer">
-      { /*<a class="card-footer-item" onClick={ () => onEditClick(id) }>Edit</a>*/ }
-      <a className="card-footer-item has-text-danger" onClick={ () => onDeleteClick(id) }>Delete</a> 
-    </footer>
-  )
+    this.priceJSX = this.makePriceJSX();
+    this.footerJSX = this.makeFooterJSX();
+    this.dispDateJSX = this.makeDispDateJSX();
+    
+    this.state = {
+      currentImage: 0,
+      isImageModalOpen: false,
+      isDetailsModalOpen: false
+    };
 
-  const dispDateText = (dispDate <= new Date())
-    ? <span><b className="has-text-success">Disponibilité : Immediat !</b></span>
-    : <span><b>Disponibilité : </b> { dispDate.toLocaleDateString() }</span>
+  }
+
+  makePriceJSX() {
+    return (this.price && this.price > 0) 
+      ? <span className="subtitle is-6"><b>{ utils.formatPrice(this.price) }</b></span>
+      : <span className="subtitle is-6 has-text-success"><b>GRATUIT !</b></span>
+  }
+
+  makeFooterJSX() {
+    if (this.isAuthenticated) return (
+      <footer className="card-footer">
+        { /*<a class="card-footer-item" onClick={ () => onEditClick(id) }>Edit</a>*/ }
+        <a className="card-footer-item has-text-danger" onClick={ () => this.onDeleteClick(this.id) }>Delete</a> 
+      </footer>
+    )
+  }
+
+  makeDispDateJSX() {
+    return (this.dispDate <= new Date())
+      ? <span><b className="disp-date is-size-7 has-text-info">Disponibilité : Immédiate !</b></span>
+      : <span className="disp-date is-size-7" ><b>Disponibilité : </b> { this.dispDate.toLocaleDateString("fr-FR") }</span>
+  }
+
+  handleLightboxClose = () => {
+    this.setState({
+      currentImage: 0,
+      isImageModalOpen: false 
+    });
+  }
+
+  handleImageClick = () => {
+    this.setState({ isImageModalOpen: true });
+  }
+
+  gotoPrev = () => {
+		this.setState(prevState => ({ 
+      currentImage: prevState.currentImage - 1 
+    }));
+  }
   
-  console.log(data)
+	gotoNext = () => {
+		this.setState(prevState => ({ 
+      currentImage: prevState.currentImage + 1 
+    }));
+	}
+  
+  render() {
+    return (
+      <div className="ProductCard card">
 
-  return (
-    <div className="ProductCard card">
-
-      <div className="card-image">
-        <figure className="image is-1by1">
-          <img src={ imgUrl }/>
-        </figure>
-      </div>
-
-      <div className="card-content">
-
-        <div className="content">
-          <p className="title is-size-5">{ name }</p>
-          { priceText }
+        <Lightbox
+          currentImage={ this.state.currentImage }
+          images={ this.imgUrls.map(u => ({ src: u })) }
+          isOpen={ this.state.isImageModalOpen }
+          onClickNext={ this.gotoNext }
+          onClickPrev={ this.gotoPrev }
+          onClose={ this.handleLightboxClose }
+          preventScroll={ false }
+        />
+              
+        <div className="card-image">
+          <figure className="image is-1by1">
+            <img src={ this.thumbnail || this.imgUrls[0] } alt={ this.name } onClick={ this.handleImageClick }/>
+          </figure>
         </div>
 
-        <div className="content">
-          <p className="is-size-7">
-            { description }
-            <br/><br/>
-            { dispDateText }
-          </p>
-        </div>
-      </div>
+        <div className="card-content">
 
-      { user && footer }
-      
-    </div>
-  );
+          <div className="content">
+            <p className="title is-5">{ this.name }</p>
+            { this.priceJSX }
+          </div>
+
+          <div className="content">
+            <p className="is-size-7">
+              { this.description }
+            </p>
+          </div>
+
+          <div className="content">
+            { this.dispDateJSX }
+          </div>
+        </div>
+
+        { this.isAuthenticated && this.footerJSX }
+        
+      </div>
+    )
+  }
 }
 
 export default ProductCard

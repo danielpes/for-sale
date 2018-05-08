@@ -10,7 +10,7 @@ const ProductList = ({ user, products, onEditClick, onDeleteClick }) => {
     return (
       <ProductCard 
         key={ p.id } 
-        data={ {imgUrl: p.imgUrls[0], ...p} }
+        data={ p }
         user={ user }
         onEditClick={ onEditClick }
         onDeleteClick={ onDeleteClick }
