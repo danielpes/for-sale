@@ -3,9 +3,25 @@ import React from 'react';
 import utils from  '../utils/utils'
 import '../styles/ProductCard.css';
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data, user, onEditClick, onDeleteClick }) => {
 
-  const { name, description, price, imgUrl, dispDate } = data;
+  const { id, name, description, price, imgUrl, dispDate } = data;
+
+  const priceText = (price && price > 0) 
+    ? <p className="subtitle is-size-6"><b>{ utils.formatPrice(price) }</b></p>
+    : <p className="subtitle is-size-6 has-text-success"><b>GRATUIT !</b></p>
+
+  let footer;
+  if (user) footer = (
+    <footer className="card-footer">
+      { /*<a class="card-footer-item" onClick={ () => onEditClick(id) }>Edit</a>*/ }
+      <a className="card-footer-item has-text-danger" onClick={ () => onDeleteClick(id) }>Delete</a> 
+    </footer>
+  )
+
+  const dispDateText = (dispDate <= new Date())
+    ? <span><b className="has-text-success">Disponibilité : Immediat !</b></span>
+    : <span><b>Disponibilité : </b> { dispDate.toLocaleDateString() }</span>
   
   console.log(data)
 
@@ -13,8 +29,8 @@ const ProductCard = ({ data }) => {
     <div className="ProductCard card">
 
       <div className="card-image">
-        <figure className="image is-4by3">
-          <img src={ imgUrl } alt="Placeholder"/>
+        <figure className="image is-1by1">
+          <img src={ imgUrl }/>
         </figure>
       </div>
 
@@ -22,18 +38,20 @@ const ProductCard = ({ data }) => {
 
         <div className="content">
           <p className="title is-size-5">{ name }</p>
-          <p className="subtitle is-size-6">{ price && utils.formatPrice(price) }</p>
+          { priceText }
         </div>
 
         <div className="content">
           <p className="is-size-7">
             { description }
             <br/><br/>
-            <b>Disponibilité : </b>{ dispDate }
+            { dispDateText }
           </p>
         </div>
-
       </div>
+
+      { user && footer }
+      
     </div>
   );
 }

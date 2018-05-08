@@ -6,7 +6,7 @@ import Body from './components/Body';
 import Footer from './components/Footer';
 import api from "./api/api";
 import auth from "./api/auth";
-import products from "./api/products";
+import productsModel from "./api/productsModel";
 
 import './styles/App.css';
 
@@ -16,16 +16,17 @@ class App extends Component {
     super(props);
     this.state = {
       products: [],
+      editingId: null,
       isLoginModalActive: false,
       isNewProductModalActive: false,
-      authenticatedUser: undefined
+      authenticatedUser: null
     }
   }
 
   componentDidMount() {
     api.init();
     auth.onAuthChange(this.handleUserAuthenticated);
-    products.onChange(products => this.setState({ products: products }));
+    productsModel.onChange(prods => this.setState({ products: prods }));
   }
 
   handleUserAuthenticated = (user) => {
@@ -50,15 +51,19 @@ class App extends Component {
   }
 
   handleAddClick = () => {
-    this.setState({ isNewProductModalActive: true })
+    this.setState({ isNewProductModalActive: true });
+  }
+
+  handleDeleteClick = (id) => {
+    if(window.confirm("Are you sure?")) productsModel.delete(id);
   }
 
   handleAddProductSubmit = (data, imageFile) => {
-    Promise.all(products.uploadImages(imageFile))
-      .then(imgUrls => products.create({ ...data, imgUrls }))
+    Promise.all(productsModel.uploadImages(imageFile))
+      .then(imgUrls => productsModel.create({ ...data, imgUrls }))
       .then(() => this.setState({ isNewProductModalActive: false }));
   }
-
+  
   handleAddProductCancel = () => {
     this.setState({ isNewProductModalActive: false });
   }
@@ -84,7 +89,12 @@ class App extends Component {
           onAddClick={ this.handleAddClick }
           user={ this.state.authenticatedUser }
         />
-        <Body products={ this.state.products }/>
+        <Body 
+          user={ this.state.authenticatedUser }
+          products={ this.state.products }
+          onEditClick={ () => console.log("edit") }
+          onDeleteClick={ this.handleDeleteClick }
+        />
         <Footer />
       </div>
     );

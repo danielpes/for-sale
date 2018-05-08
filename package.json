@@ -1,7 +1,7 @@
 {
-  "name": "moving-out-sale",
+  "name": "for-sale",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://danielpes.github.io/for-sale",
   "dependencies": {
     "bulma": "^0.7.1",

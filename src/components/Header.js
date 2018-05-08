@@ -5,7 +5,7 @@ const Header = (props) => {
   const { onLoginClick, onLogoutClick, onAddClick, user } = props
 
   const addProductButton = user && 
-    <a className="button is-primary" onClick={ onAddClick }>Add Product</a>
+    <a className="button is-primary" onClick={ onAddClick }>Add Item</a>
 
   const loginButton = user ? 
     <a className="navbar-item" onClick={ onLogoutClick }>Logout</a>

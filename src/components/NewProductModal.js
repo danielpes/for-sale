@@ -17,7 +17,7 @@ class NewProductModal extends React.Component {
         category: "",
         description: "",
         price: null,
-        dispDate: null,
+        dispDate: new Date(),
         files: []
       }
     };
@@ -25,9 +25,9 @@ class NewProductModal extends React.Component {
 
   setField(keyValue) {
     this.setState(prevState => { 
-      console.log({...prevState.data, ...keyValue});
+      console.log({ ...prevState.data, ...keyValue });
       return {
-        data: {...prevState.data, ...keyValue}
+        data: { ...prevState.data, ...keyValue }
       };
     });
   }
@@ -37,7 +37,7 @@ class NewProductModal extends React.Component {
     this.setState({ isLoading: true });
     const {files, ...data} = this.state.data;
     console.log(files, data);
-    this.onAddProductSubmit(data, files);
+    this.onAddProductSubmit({ ...data, deleting: false }, files);
   }
 
   formatFilesLabel() {
@@ -78,7 +78,9 @@ class NewProductModal extends React.Component {
                 <div className="select">
                   <select name="category" onChange={ e => this.setField({category: e.target.value}) }>
                     <option>Meuble</option>
-                    <option>Objet</option>
+                    <option>Électroménager</option>
+                    <option>Informatique</option>
+                    <option>Objet(s)</option>
                   </select>
                 </div>
               </div>
@@ -103,8 +105,8 @@ class NewProductModal extends React.Component {
               <div className="control">
                 <Flatpickr 
                   className="input"
-                  value={new Date()}
-                  onChange={ d => this.setField({ dispDate: d[0].toLocaleDateString() }) } />
+                  value={ this.state.data.dispDate }
+                  onChange={ d => this.setField({ dispDate: d[0] }) } />
               </div>
             </div>
 

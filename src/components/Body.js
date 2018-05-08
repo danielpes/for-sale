@@ -3,12 +3,17 @@ import React from 'react';
 import '../styles/Body.css';
 import ProductList from './ProductList';
 
-const Body = ({ products }) => {
+const Body = ({ user, products, onEditClick, onDeleteClick }) => {
 
   return (
     <div className="Body">
       <section className="section">
-        <ProductList products={ products }/>
+        <ProductList 
+          user={ user }
+          products={ products }
+          onEditClick={ onEditClick }
+          onDeleteClick={ onDeleteClick }
+        />
       </section>
     </div>
   )
