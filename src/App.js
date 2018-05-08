@@ -26,12 +26,11 @@ class App extends Component {
 
   componentDidMount() {
     api.init();
-    auth.onAuthChange(this.handleUserAuthenticated);
+    auth.onAuthChange(this.handleUserChange);
     productsModel.onChange(prods => this.setState({ products: prods }));
   }
 
-  handleUserAuthenticated = (user) => {
-    console.log(user);
+  handleUserChange = (user) => {
     this.setState({ authenticatedUser: user });
   }
 
@@ -58,6 +57,10 @@ class App extends Component {
   handleDeleteClick = (id) => {
     if(window.confirm("Are you sure?")) productsModel.delete(id);
   }
+  
+  handleAddProductCancel = () => {
+    this.setState({ isNewProductModalActive: false });
+  }
 
   handleAddProductSubmit = (data, imageFiles) => {
     const firstImage = imageFiles[0];
@@ -78,10 +81,6 @@ class App extends Component {
       // Close modal
       () => this.setState({ isNewProductModalActive: false })
     );
-  }
-  
-  handleAddProductCancel = () => {
-    this.setState({ isNewProductModalActive: false });
   }
 
   render() {

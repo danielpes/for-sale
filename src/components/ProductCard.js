@@ -10,8 +10,6 @@ class ProductCard extends React.Component {
     super(props);
 
     Object.assign(this, props.data);
-    console.log(this);
-    this.isAuthenticated = Boolean(props.user); 
     this.onEditClick = props.onEditClick;
     this.onDeleteClick = props.onDeleteClick;
 
@@ -34,7 +32,7 @@ class ProductCard extends React.Component {
   }
 
   makeFooterJSX() {
-    if (this.isAuthenticated) return (
+    return (
       <footer className="card-footer">
         { /*<a class="card-footer-item" onClick={ () => onEditClick(id) }>Edit</a>*/ }
         <a className="card-footer-item has-text-danger" onClick={ () => this.onDeleteClick(this.id) }>Delete</a> 
@@ -46,6 +44,10 @@ class ProductCard extends React.Component {
     return (this.dispDate <= new Date())
       ? <span><b className="disp-date is-size-7 has-text-info">Disponibilité : Immédiate !</b></span>
       : <span className="disp-date is-size-7" ><b>Disponibilité : </b> { this.dispDate.toLocaleDateString("fr-FR") }</span>
+  }
+
+  capitalizeFirstLetter(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1)
   }
 
   handleLightboxClose = () => {
@@ -94,13 +96,13 @@ class ProductCard extends React.Component {
         <div className="card-content">
 
           <div className="content">
-            <p className="title is-5">{ this.name }</p>
+            <p className="title is-5">{ this.capitalizeFirstLetter(this.name) }</p>
             { this.priceJSX }
           </div>
 
           <div className="content">
             <p className="is-size-7">
-              { this.description }
+              { this.capitalizeFirstLetter(this.description) }
             </p>
           </div>
 
@@ -109,7 +111,7 @@ class ProductCard extends React.Component {
           </div>
         </div>
 
-        { this.isAuthenticated && this.footerJSX }
+        { this.props.user && this.footerJSX }
         
       </div>
     )

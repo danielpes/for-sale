@@ -13,7 +13,6 @@ const productsModel = {
 
   create: function(data) {
     const newProductKey = firebase.database().ref('products').push().key;
-    console.log(data)
     return firebase.database().ref(`products/${newProductKey}`).set({ id: newProductKey, ...data, dispDate: data.dispDate.valueOf() });
   },
 
@@ -26,7 +25,6 @@ const productsModel = {
   },
 
   uploadImages: function(imageFiles) {
-    console.log(imageFiles);
     return imageFiles.map(file => (
       firebase.storage().ref(file.name).put(file).then(s => s.downloadURL)
     ));

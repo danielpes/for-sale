@@ -35,10 +35,6 @@ const utils = {
       }
       image.src = URL.createObjectURL(file);
     });
-    /*return new Promise((resolve, reject) => {
-      console.log(canvas.toBlob(resolve, imageType, imageArguments))
-      return canvas.toBlob(resolve, imageType, imageArguments)
-    });*/
   }
 }
 

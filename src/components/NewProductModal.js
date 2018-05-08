@@ -25,8 +25,7 @@ class NewProductModal extends React.Component {
   }
 
   setField(keyValue) {
-    this.setState(prevState => { 
-      console.log({ ...prevState.data, ...keyValue });
+    this.setState(prevState => {
       return {
         data: { ...prevState.data, ...keyValue }
       };
@@ -37,7 +36,6 @@ class NewProductModal extends React.Component {
     ev.preventDefault();
     this.setState({ isLoading: true });
     const {files, ...data} = this.state.data;
-    console.log(files, data);
     this.onAddProductSubmit({ ...data, deleting: false }, files);
   }
 

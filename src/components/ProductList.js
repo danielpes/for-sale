@@ -4,7 +4,6 @@ import '../styles/ProductList.css';
 import ProductCard from './ProductCard';
 
 const ProductList = ({ user, products, onEditClick, onDeleteClick }) => {
-  console.log(products)
 
   const cards = products.map((p) => {
     return (

@@ -6,7 +6,6 @@ const LoginModal = ({ onLoginSubmit, onLoginCancel }) => {
 
   function onFormSubmit(ev) {
     ev.preventDefault();
-    console.log(ev);
     const email = ev.target.elements.email.value;
     const password = ev.target.elements.password.value;
     onLoginSubmit(email, password);

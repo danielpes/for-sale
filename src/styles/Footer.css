@@ -1,8 +1,21 @@
 .Footer {
   color: #555;
   padding-bottom: 1em; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; 
+  font-weight: lighter;
 }
 
-.Footer p {
-  text-align: center; 
+.Footer .fa-react {
+  color: #00d8ff;
+  margin-bottom: -0.06em;
+}
+
+.Footer img {
+  background-color: transparent;
+  height: 0.95em;
+  width: 0.95em;
+  margin-bottom: -0.12em;
 }
