@@ -10,6 +10,9 @@ class ProductCard extends React.Component {
     super(props);
 
     Object.assign(this, props.data);
+    this.name = this.capitalizeFirstLetter(this.name)
+    this.description = this.capitalizeFirstLetter(this.description.replace(/Dimension/g, "\nDimension"))
+
     this.onEditClick = props.onEditClick;
     this.onDeleteClick = props.onDeleteClick;
 
@@ -28,7 +31,7 @@ class ProductCard extends React.Component {
   makePriceJSX() {
     return (this.price && this.price > 0) 
       ? <span className="subtitle is-6"><b>{ utils.formatPrice(this.price) }</b></span>
-      : <span className="subtitle is-6 has-text-success"><b>GRATUIT !</b></span>
+      : <span className="subtitle is-6 has-text-primary"><b>GRATUIT !</b></span>
   }
 
   makeFooterJSX() {
@@ -96,14 +99,12 @@ class ProductCard extends React.Component {
         <div className="card-content">
 
           <div className="content">
-            <p className="title is-5">{ this.capitalizeFirstLetter(this.name) }</p>
+            <span className="title is-5">{ this.name }</span>
             { this.priceJSX }
           </div>
 
-          <div className="content">
-            <p className="is-size-7">
-              { this.capitalizeFirstLetter(this.description) }
-            </p>
+          <div style={{whiteSpace: "pre-wrap"}} className="content is-size-7">
+            { this.description }
           </div>
 
           <div className="content">

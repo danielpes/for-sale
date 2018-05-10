@@ -1,0 +1,28 @@
+.Filter {
+  align-items: center;
+}
+
+.Filter .field-label {
+  flex-basis: auto;
+  flex-grow: 0;
+}
+
+.Filter .field-body {
+  flex-basis: auto;
+}
+
+.Filter .count {
+  text-align: right;
+}
+
+@media only screen and (max-width: 768px) {
+  .Filter .count {
+      text-align: center;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 840px){
+  .Filter .count .hide-if-needed {
+      display: none;
+  }
+}

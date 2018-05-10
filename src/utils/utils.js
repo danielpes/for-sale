@@ -35,6 +35,24 @@ const utils = {
       }
       image.src = URL.createObjectURL(file);
     });
+  },
+
+  filterProducts: function(prevProducts, chosenCategory) {
+    return (chosenCategory === "all")
+      ? prevProducts
+      : prevProducts.filter(p => p.category === chosenCategory)
+  },
+
+  sortProducts: function(prevProducts, sortBy) {
+    let sortedProducts = prevProducts;
+    if (sortBy === "name") sortedProducts = prevProducts.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    })
+    else if (sortBy === "priceAsc") sortedProducts = prevProducts.sort((a, b) => a.price - b.price);
+    else if (sortBy === "priceDesc") sortedProducts = prevProducts.sort((a, b) => b.price - a.price);
+    return sortedProducts;
   }
 }
 

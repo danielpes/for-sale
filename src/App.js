@@ -16,7 +16,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
+      products: null,
       editingId: null,
       isLoginModalActive: false,
       isNewProductModalActive: false,

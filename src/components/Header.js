@@ -6,10 +6,10 @@ const Header = (props) => {
 
   const { onLoginClick, onLogoutClick, onAddClick, user } = props
 
-  const addProductButton = user && 
+  const addProductButtonJSX = user && 
     <a className="button is-primary" onClick={ onAddClick }>Add Item</a>
 
-  const loginButton = user ? 
+  const loginButtonJSX = user ? 
     <a className="navbar-item" onClick={ onLogoutClick }>Logout</a>
     : <a className="navbar-item" onClick={ onLoginClick }>Login</a>
 
@@ -30,8 +30,8 @@ const Header = (props) => {
 
       <div className="navbar-menu">
         <div className="navbar-end">
-          <div className="navbar-item">{ addProductButton }</div>
-          <div className="navbar-item">{ loginButton }</div>
+          <div className="navbar-item">{ addProductButtonJSX }</div>
+          <div className="navbar-item">{ loginButtonJSX }</div>
         </div>
       </div>
 
