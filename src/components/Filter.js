@@ -46,7 +46,7 @@ const Filter = ({ onCategoryDropdownChange, onSortDropdownChange, productCount }
       </div>
     </div>
   );
-
+/* 
   const freeOnlyCheckboxJSX = (
     <div className="control">
       <label className="checkbox">
@@ -54,14 +54,14 @@ const Filter = ({ onCategoryDropdownChange, onSortDropdownChange, productCount }
       </label>
     </div>
   );
-
-
+ */
+/* 
   const filterIconJSX = (
     <span className="icon is-medium">
       <i className="fas fa-filter"></i>
     </span>
   );
-
+ */
   const countLabelJSX = (
     <span><span>{ `${productCount} articles` }</span><span className="hide-if-needed"> affichés</span>.</span>
   );

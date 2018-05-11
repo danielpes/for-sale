@@ -68,16 +68,16 @@ class ProductCard extends React.Component {
   }
 
   gotoPrev = () => {
-		this.setState(prevState => ({ 
+    this.setState(prevState => ({ 
       currentImage: prevState.currentImage - 1 
     }));
   }
   
-	gotoNext = () => {
-		this.setState(prevState => ({ 
+  gotoNext = () => {
+    this.setState(prevState => ({ 
       currentImage: prevState.currentImage + 1 
     }));
-	}
+  }
   
   render() {
     return (
