@@ -1,0 +1,17 @@
+.ProductListModal .modal-content {
+  background-color: white;
+  width: 75%;
+}
+
+.ProductListModal .rt-thead {
+  overflow-y: scroll;
+}
+
+.ProductListModal .rt-th:focus {
+  outline-width: 0px;
+}
+
+.ProductListModal .priceCell {
+  float: right;
+  margin-right: 1rem;
+}

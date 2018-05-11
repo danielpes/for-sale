@@ -3,6 +3,11 @@ const utils = {
     return `€ ${parseFloat(price).toFixed(2)}`
   },
 
+
+  capitalizeFirstLetter: function(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1)
+  },
+
   delay: function(ms) {
     return new Promise((resolve) => {
       setTimeout(() => {

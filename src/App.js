@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoginModal from './components/LoginModal';
 import NewProductModal from './components/NewProductModal';
+import ProductListModal from './components/ProductListModal';
 import ReservationModal from './components/ReservationModal';
 import Header from './components/Header';
 import Body from './components/Body';
@@ -21,6 +22,7 @@ class App extends Component {
       editingId: null,
       isLoginModalActive: false,
       isNewProductModalActive: false,
+      isProductListModalActive: false,
       reservationModalProduct: null,
       authenticatedUser: null,
       lastPerson: {
@@ -67,10 +69,15 @@ class App extends Component {
     this.setState({ reservationModalProduct: this.state.products.find(p => p.id === id) })
   }
   
+  handleProductListClick = () => {
+    this.setState({ isProductListModalActive: true });
+  }
+
   handleCloseModal(whichModal) {
     let stateVar, stateObj = {};
     if (whichModal === "login") stateVar = "isLoginModalActive"
     else if (whichModal === "newProduct") stateVar = "isNewProductModalActive"
+    else if (whichModal === "productList") stateVar = "isProductListModalActive"
     else if (whichModal === "reservation") stateVar = "reservationModalProduct"
     stateObj[stateVar] = null
     return () => this.setState(stateObj);
@@ -117,6 +124,11 @@ class App extends Component {
             onAddProductCancel={ this.handleCloseModal("newProduct") }
           />
         ) }
+        { this.state.isProductListModalActive && (
+          <ProductListModal 
+            products={ this.state.products } 
+            onClose={ this.handleCloseModal("productList") }/> 
+        ) }
         { this.state.reservationModalProduct && (
           <ReservationModal 
             onReservationSubmit={ this.handleReservationSubmit }
@@ -128,6 +140,7 @@ class App extends Component {
         <Header 
           onLoginClick={ this.handleLoginClick }
           onLogoutClick={ this.handleLogoutClick }
+          onListClick={ this.handleProductListClick }
           onAddClick={ this.handleAddClick }
           user={ this.state.authenticatedUser }
         />

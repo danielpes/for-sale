@@ -13,7 +13,7 @@ const Header = (props) => {
     <a className="navbar-item" onClick={ onLogoutClick }>Logout</a>
     : <a className="navbar-item" onClick={ onLoginClick }>Login</a>
 
-  const tableButtonJSX = user &&
+  const tableButtonJSX = user && 
     <a className="button is-light" onClick={ onListClick }>Products List</a>
 
   return (

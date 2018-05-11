@@ -10,8 +10,8 @@ class ProductCard extends React.Component {
     super(props);
 
     Object.assign(this, props.data);
-    this.name = this.capitalizeFirstLetter(this.name)
-    this.description = this.capitalizeFirstLetter(this.description.replace(/Dimension/g, "\nDimension"))
+    this.name = utils.capitalizeFirstLetter(this.name)
+    this.description = utils.capitalizeFirstLetter(this.description.replace(/Dimension/g, "\nDimension"))
 
     this.onEditClick = props.onEditClick;
     this.onDeleteClick = props.onDeleteClick;
@@ -50,10 +50,6 @@ class ProductCard extends React.Component {
     return (this.dispDate <= new Date())
       ? <span><b className="disp-date is-size-7 has-text-info">Disponibilité : Immédiate !</b></span>
       : <span className="disp-date is-size-7" ><b>Disponibilité : </b> { this.dispDate.toLocaleDateString("fr-FR") }</span>
-  }
-
-  capitalizeFirstLetter(text) {
-    return text.charAt(0).toUpperCase() + text.slice(1)
   }
 
   handleLightboxClose = () => {
