@@ -45,9 +45,15 @@ const utils = {
 
   sortProducts: function(prevProducts, sortBy) {
     let sortedProducts = prevProducts;
-    if (sortBy === "name") sortedProducts = prevProducts.sort((a, b) => a.name.localeCompare(b.name, "fr-FR"))
-    else if (sortBy === "priceAsc") sortedProducts = prevProducts.sort((a, b) => a.price - b.price);
-    else if (sortBy === "priceDesc") sortedProducts = prevProducts.sort((a, b) => b.price - a.price);
+    if (sortBy === "name") sortedProducts = prevProducts.sort((a, b) => {
+      return a.name.localeCompare(b.name, "fr-FR");
+    });
+    else if (sortBy === "priceAsc") sortedProducts = prevProducts.sort((a, b) => {
+      return (a.price - b.price) || a.name.localeCompare(b.name, "fr-FR");
+    });
+    else if (sortBy === "priceDesc") sortedProducts = prevProducts.sort((a, b) => {
+      return (b.price - a.price) || b.name.localeCompare(a.name, "fr-FR");
+    });
     return sortedProducts;
   }
 }
