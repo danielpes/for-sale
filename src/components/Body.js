@@ -66,6 +66,7 @@ class Body extends React.Component {
             products={ this.state.visibleProducts }
             onEditClick={ this.props.onEditClick }
             onDeleteClick={ this.props.onDeleteClick }
+            onReservationClick={ this.props.onReservationClick }
           />
         </section>
       </div>

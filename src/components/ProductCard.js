@@ -15,9 +15,9 @@ class ProductCard extends React.Component {
 
     this.onEditClick = props.onEditClick;
     this.onDeleteClick = props.onDeleteClick;
+    this.onReservationClick = props.onReservationClick;
 
     this.priceJSX = this.makePriceJSX();
-    this.footerJSX = this.makeFooterJSX();
     this.dispDateJSX = this.makeDispDateJSX();
     
     this.state = {
@@ -34,11 +34,14 @@ class ProductCard extends React.Component {
       : <span className="subtitle is-6 has-text-primary"><b>GRATUIT !</b></span>
   }
 
-  makeFooterJSX() {
+  makeFooterJSX(user) {
+    const deleteJSX = user && <a className="card-footer-item has-text-danger" onClick={ () => this.onDeleteClick(this.id) }>Delete</a> 
+    const makeReservationJSX = !user && <a className="card-footer-item has-text-primary" onClick={ () => this.onReservationClick(this.id) } >Je Réserve !</a> 
+
     return (
       <footer className="card-footer">
-        { /*<a class="card-footer-item" onClick={ () => onEditClick(id) }>Edit</a>*/ }
-        <a className="card-footer-item has-text-danger" onClick={ () => this.onDeleteClick(this.id) }>Delete</a> 
+        { makeReservationJSX }
+        { deleteJSX }
       </footer>
     )
   }
@@ -91,7 +94,7 @@ class ProductCard extends React.Component {
         />
               
         <div className="card-image">
-          <figure className="image is-1by1">
+          <figure className="image is-square">
             <img src={ this.thumbnail || this.imgUrls[0] } alt={ this.name } onClick={ this.handleImageClick }/>
           </figure>
         </div>
@@ -112,7 +115,7 @@ class ProductCard extends React.Component {
           </div>
         </div>
 
-        { this.props.user && this.footerJSX }
+        { this.makeFooterJSX(this.props.user) }
         
       </div>
     )

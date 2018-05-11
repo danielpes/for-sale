@@ -45,11 +45,7 @@ const utils = {
 
   sortProducts: function(prevProducts, sortBy) {
     let sortedProducts = prevProducts;
-    if (sortBy === "name") sortedProducts = prevProducts.sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    })
+    if (sortBy === "name") sortedProducts = prevProducts.sort((a, b) => a.name.localeCompare(b.name, "fr-FR"))
     else if (sortBy === "priceAsc") sortedProducts = prevProducts.sort((a, b) => a.price - b.price);
     else if (sortBy === "priceDesc") sortedProducts = prevProducts.sort((a, b) => b.price - a.price);
     return sortedProducts;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoginModal from './components/LoginModal';
 import NewProductModal from './components/NewProductModal';
+import ReservationModal from './components/ReservationModal';
 import Header from './components/Header';
 import Body from './components/Body';
 import Footer from './components/Footer';
@@ -9,7 +10,7 @@ import auth from "./api/auth";
 import utils from "./utils/utils";
 import productsModel from "./api/productsModel";
 
-import './styles/App.css';
+//import './styles/App.css';
 
 class App extends Component {
 
@@ -20,8 +21,16 @@ class App extends Component {
       editingId: null,
       isLoginModalActive: false,
       isNewProductModalActive: false,
-      authenticatedUser: null
+      reservationModalProduct: null,
+      authenticatedUser: null,
+      lastPerson: {
+        name: null,
+        email: null,
+        phone: null
+      }
     }
+
+    this.handleCloseModal = this.handleCloseModal.bind(this)
   }
 
   componentDidMount() {
@@ -46,10 +55,6 @@ class App extends Component {
     auth.doLogin(email, password).then(() => this.setState({ isLoginModalActive: false }), auth.handleError);
   }
   
-  handleLoginCancel = () => {
-    this.setState({ isLoginModalActive: false });
-  }
-
   handleAddClick = () => {
     this.setState({ isNewProductModalActive: true });
   }
@@ -57,9 +62,23 @@ class App extends Component {
   handleDeleteClick = (id) => {
     if(window.confirm("Are you sure?")) productsModel.delete(id);
   }
+
+  handleReservationClick = (id) => {
+    this.setState({ reservationModalProduct: this.state.products.find(p => p.id === id) })
+  }
   
-  handleAddProductCancel = () => {
-    this.setState({ isNewProductModalActive: false });
+  handleCloseModal(whichModal) {
+    let stateVar, stateObj = {};
+    if (whichModal === "login") stateVar = "isLoginModalActive"
+    else if (whichModal === "newProduct") stateVar = "isNewProductModalActive"
+    else if (whichModal === "reservation") stateVar = "reservationModalProduct"
+    stateObj[stateVar] = null
+    return () => this.setState(stateObj);
+  }
+
+  handleReservationSubmit = (product, person) => {
+    productsModel.addPersonToWaitList(product, person).then(() => window.alert("Reservé"))
+    this.setState({ lastPerson: person, reservationModalProduct: null })
   }
 
   handleAddProductSubmit = (data, imageFiles) => {
@@ -89,13 +108,21 @@ class App extends Component {
         { this.state.isLoginModalActive && (
           <LoginModal 
             onLoginSubmit={ this.handleLoginSubmit }
-            onLoginCancel={ this.handleLoginCancel }
+            onLoginCancel={ this.handleCloseModal("login") }
           />
         ) }
         { this.state.isNewProductModalActive && (
           <NewProductModal 
             onAddProductSubmit={ this.handleAddProductSubmit }
-            onAddProductCancel={ this.handleAddProductCancel }
+            onAddProductCancel={ this.handleCloseModal("newProduct") }
+          />
+        ) }
+        { this.state.reservationModalProduct && (
+          <ReservationModal 
+            onReservationSubmit={ this.handleReservationSubmit }
+            onReservationCancel={ this.handleCloseModal("reservation") }
+            product={ this.state.reservationModalProduct }
+            lastPerson={ this.state.lastPerson }
           />
         ) }
         <Header 
@@ -109,6 +136,7 @@ class App extends Component {
           products={ this.state.products }
           onEditClick={ () => console.log("edit") }
           onDeleteClick={ this.handleDeleteClick }
+          onReservationClick={ this.handleReservationClick }
         />
         <Footer />
       </div>

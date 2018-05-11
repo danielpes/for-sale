@@ -3,7 +3,7 @@ import React from 'react';
 import '../styles/ProductList.css';
 import ProductCard from './ProductCard';
 
-const ProductList = ({ user, products, onEditClick, onDeleteClick }) => {
+const ProductList = ({ user, products, onEditClick, onDeleteClick, onReservationClick }) => {
 
   const cards = products.map((p) => {
     return (
@@ -13,6 +13,7 @@ const ProductList = ({ user, products, onEditClick, onDeleteClick }) => {
         user={ user }
         onEditClick={ onEditClick }
         onDeleteClick={ onDeleteClick }
+        onReservationClick={ onReservationClick }
       />
     )
   });

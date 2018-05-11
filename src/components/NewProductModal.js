@@ -3,7 +3,8 @@ import React from 'react';
 import Flatpickr from 'react-flatpickr'
 import 'flatpickr/dist/themes/material_green.css'
 import 'flatpickr/dist/l10n/fr';
-import '../styles/NewProductModal.css';
+
+//import '../styles/NewProductModal.css';
 
 class NewProductModal extends React.Component {
 

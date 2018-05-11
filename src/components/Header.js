@@ -4,7 +4,7 @@ import '../styles/Header.css';
 
 const Header = (props) => {
 
-  const { onLoginClick, onLogoutClick, onAddClick, user } = props
+  const { user, onLoginClick, onLogoutClick, onAddClick, onListClick } = props
 
   const addProductButtonJSX = user && 
     <a className="button is-primary" onClick={ onAddClick }>Add Item</a>
@@ -13,11 +13,14 @@ const Header = (props) => {
     <a className="navbar-item" onClick={ onLogoutClick }>Logout</a>
     : <a className="navbar-item" onClick={ onLoginClick }>Login</a>
 
+  const tableButtonJSX = user &&
+    <a className="button is-light" onClick={ onListClick }>Products List</a>
+
   return (
     <div className="Header navbar is-fixed-top is-transparent has-shadow">
 
       <div className="navbar-brand">
-        <a className="navbar-item has-icon-left">
+        <a onClick={ () => window.scrollTo(0, 0) } className="navbar-item has-icon-left">
           <span className="icon is-medium">
             <span className="fa-stack has-text-primary">
               <i className="fas fa-circle fa-stack-2x"></i>
@@ -31,6 +34,7 @@ const Header = (props) => {
       <div className="navbar-menu">
         <div className="navbar-end">
           <div className="navbar-item">{ addProductButtonJSX }</div>
+          <div className="navbar-item">{ tableButtonJSX }</div>
           <div className="navbar-item">{ loginButtonJSX }</div>
         </div>
       </div>

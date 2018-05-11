@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../styles/LoginModal.css';
+//import '../styles/LoginModal.css';
 
 const LoginModal = ({ onLoginSubmit, onLoginCancel }) => {
 

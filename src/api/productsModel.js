@@ -24,6 +24,13 @@ const productsModel = {
     return firebase.database().ref(`products/${id}`).set(newData);
   },
 
+  addPersonToWaitList: function(product, person) {
+    const id = product.id;
+    const currentList = product.waitList || [];
+    const personToAdd = { ...person, date: new Date().valueOf() };
+    return firebase.database().ref(`products/${id}/waitList`).set([...currentList, personToAdd])
+  },
+
   uploadImages: function(imageFiles) {
     return imageFiles.map(file => (
       firebase.storage().ref(file.name).put(file).then(s => s.downloadURL)
