@@ -54,10 +54,10 @@ const utils = {
       return (!!b.new - !!a.new) || a.name.localeCompare(b.name, "fr-FR");
     });
     else if (sortBy === "priceAsc") sortedProducts = prevProducts.sort((a, b) => {
-      return (!!b.new - !!a.new) || (a.price - b.price) || a.name.localeCompare(b.name, "fr-FR");
+      return (a.price - b.price) || a.name.localeCompare(b.name, "fr-FR");
     });
     else if (sortBy === "priceDesc") sortedProducts = prevProducts.sort((a, b) => {
-      return (!!b.new - !!a.new) || (b.price - a.price) || b.name.localeCompare(a.name, "fr-FR");
+      return (b.price - a.price) || b.name.localeCompare(a.name, "fr-FR");
     });
     return sortedProducts;
   }
