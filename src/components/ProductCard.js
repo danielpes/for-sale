@@ -35,11 +35,13 @@ class ProductCard extends React.Component {
   }
 
   makeFooterJSX(user) {
-    console.log(this)
+    const waitList = this.props.data.waitList || []
     const deleteJSX = user && <a className="card-footer-item has-text-danger" onClick={ () => this.onDeleteClick(this.id) }>Delete</a> 
     const makeReservationJSX = !user && (
-      (this.waitList && this.waitList.length)
-    ? <a className="card-footer-item has-text-info" onClick={ () => this.onReservationClick(this.id) } >{ `Liste d'attente (${this.waitList.length})` }</a>
+      (waitList.length > 0)
+        ? <a className="card-footer-item has-text-info" onClick={ () => this.onReservationClick(this.id) } >
+            { `Liste d'attente (${this.props.data.waitList.length})` }
+          </a>
         : <a className="card-footer-item has-text-primary" onClick={ () => this.onReservationClick(this.id) } >Je Réserve !</a> 
     )
 
