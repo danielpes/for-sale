@@ -16,14 +16,12 @@ const ReservationModal = ({ onReservationSubmit, onReservationCancel, product, l
     <p>Veuillez noter que la date de disponibilité est le <b>{ product.dispDate.toLocaleDateString("fr-FR") }</b>.</p>
   ) 
 
-  const waitListJSX = (typeof product.waitList === "undefined" || product.waitList.length === 0)
-    ? <div>
-        <p>Vous êtes la première personne a vouloir cet article.</p>
-        <p>Merci de remplir le formulaire suivant.</p>
-      </div>
-    : <div>
-        <p><b>{ product.waitList.length } personne(s)</b> sont déjà dans la liste d'attente pour cet article.</p>
-        <p>Si vous voulez rentrer dans cette liste, merci de remplir le formulaire suivant.</p>
+  const waitListJSX = (product.waitList && product.waitList.length) &&
+     <div className="content">
+        <hr/>
+        <p>Les personnes suivantes sont déjà dans la liste d'attente pour cet article :</p>
+        <ol>{ product.waitList.map(p => <b><li>{ p.name }</li></b>) }</ol>
+        <p>Si vous voulez vous ajouter à cette liste, merci de remplir le formulaire suivant.</p>
       </div>
 
   return (
@@ -42,7 +40,6 @@ const ReservationModal = ({ onReservationSubmit, onReservationCancel, product, l
           { console.log(product) }
           <p>Vous voulez reserver l'article suivant: <b>"{ product.name }"</b>.</p>
           { dateDisclaimerJSX }
-          <hr/>
           { waitListJSX }
           <hr/>
 

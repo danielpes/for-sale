@@ -19,6 +19,18 @@
   flex-direction: column;
 }
 
+.ProductCard .product-name {
+  display: flex;
+  align-items: center;
+}
+
+.ProductCard .card-image .tag {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 0;
+}
+
 .ProductCard .content:first-child {
   flex: 0 0 auto;
 }

@@ -35,8 +35,13 @@ class ProductCard extends React.Component {
   }
 
   makeFooterJSX(user) {
+    console.log(this)
     const deleteJSX = user && <a className="card-footer-item has-text-danger" onClick={ () => this.onDeleteClick(this.id) }>Delete</a> 
-    const makeReservationJSX = !user && <a className="card-footer-item has-text-primary" onClick={ () => this.onReservationClick(this.id) } >Je Réserve !</a> 
+    const makeReservationJSX = !user && (
+      (this.waitList && this.waitList.length)
+    ? <a className="card-footer-item has-text-info" onClick={ () => this.onReservationClick(this.id) } >{ `Liste d'attente (${this.waitList.length})` }</a>
+        : <a className="card-footer-item has-text-primary" onClick={ () => this.onReservationClick(this.id) } >Je Réserve !</a> 
+    )
 
     return (
       <footer className="card-footer">
@@ -48,7 +53,7 @@ class ProductCard extends React.Component {
 
   makeDispDateJSX() {
     return (this.dispDate <= new Date())
-      ? <span><b className="disp-date is-size-7 has-text-info">Disponibilité : Immédiate !</b></span>
+      ? <span><b className="disp-date is-size-7">Disponibilité : Immédiate !</b></span>
       : <span className="disp-date is-size-7" ><b>Disponibilité : </b> { this.dispDate.toLocaleDateString("fr-FR") }</span>
   }
 
@@ -89,16 +94,19 @@ class ProductCard extends React.Component {
           preventScroll={ false }
         />
               
-        <div className="card-image">
+        <div className="card-image" onClick={ this.handleImageClick }>
           <figure className="image is-square">
-            <img src={ this.thumbnail || this.imgUrls[0] } alt={ this.name } onClick={ this.handleImageClick }/>
+            <img src={ this.thumbnail || this.imgUrls[0] } alt={ this.name }/>
           </figure>
+          { this.new && <span className="tag is-info is-small">New!</span> }
         </div>
 
         <div className="card-content">
 
           <div className="content">
-            <span className="title is-5">{ this.name }</span>
+            <div className="product-name">
+              <span className="title is-5">{ this.name }</span>
+              </div>
             { this.priceJSX }
           </div>
 

@@ -101,7 +101,7 @@ class App extends Component {
       // Create product in the database
       (imgUrls) => {
         const [thumbnail, ...others] = imgUrls;
-        return productsModel.create({ ...data, thumbnail, imgUrls: others });
+        return productsModel.create({ ...data, thumbnail, imgUrls: others, new: true });
       }
     ).then(
       // Close modal
