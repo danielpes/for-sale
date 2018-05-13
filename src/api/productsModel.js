@@ -4,7 +4,7 @@ const productsModel = {
 
   onChange: function(f) {
     return firebase.database().ref(`products`).on('value', function(snapshot) {
-      const products = snapshot.val() ? Object.values(snapshot.val()) : [];
+      const products = snapshot.val() ? Object.keys(snapshot.val()).map(i => snapshot.val()[i]) : [];
       return f(products.map((p) => {
         return { ...p, dispDate: new Date(p.dispDate) }
       }))
