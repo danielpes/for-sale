@@ -10,7 +10,11 @@ Back-end on Firebase.
 ### Screenshots
 
 <p align="center">
-<img src="public/images/screenshot1.png" width=720></img><hr/>
-<img src="public/images/screenshot2.png" width=720></img><hr/>
-<img src="public/images/screenshot3.png" width=360></img> <img src="public/images/screenshot4.png" width=360></img>
+  <img src="public/images/screenshot1.png" width=720></img><hr/>
+</p>
+<p align="center">
+  <img src="public/images/screenshot2.png" width=720></img><hr/>
+</p
+<p align="center">
+  <img src="public/images/screenshot3.png" width=360></img> <img src="public/images/screenshot4.png" width=360></img>
 </p>
